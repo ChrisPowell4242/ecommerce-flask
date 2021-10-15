@@ -1,7 +1,6 @@
-from app import app, db, mail
+from app import app, db
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
-from flask_mail import Message
 from app.forms import UserInfoForm, PostForm, LoginForm
 from app.models import User, Post
 
