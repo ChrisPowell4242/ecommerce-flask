@@ -19,14 +19,14 @@ def products():
     return render_template('products.html', title=title, products=products)
 
 
-@app.route('/register', methods=["GET", 'POST'])
-def register():
-    register_form = UserInfoForm()
-    if register_form.validate_on_submit():
+@app.route('/signup', methods=["GET", 'POST'])
+def signup():
+    signup_form = UserInfoForm()
+    if signup_form.validate_on_submit():
         # Grab Data from form
-        username = register_form.username.data
-        email = register_form.email.data
-        password = register_form.password.data
+        username = signup_form.username.data
+        email = signup_form.email.data
+        password = signup_form.password.data
 
         # Check if the username from the form already exists in the User table
         existing_user = User.query.filter_by(username=username).all()
@@ -45,17 +45,10 @@ def register():
         # Flash a success message thanking them for signing up
         flash(f'Thank you {username}, you have succesfully registered!', 'success')
 
-        # Create Welcome Email to new user
-        welcome_message = Message('Welcome to the Kekambas Blog!', [email])
-        welcome_message.body = f'Dear {username}, Thank you for signing up for our blog. We are so excited to have you.'
-
-        # Send Welcome Email
-        mail.send(welcome_message)
-
         # Redirecting to the home page
         return redirect(url_for('index'))
         
-    return render_template('register.html', form=register_form)
+    return render_template('signup.html', form=signup_form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
