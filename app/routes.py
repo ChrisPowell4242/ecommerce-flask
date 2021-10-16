@@ -113,6 +113,12 @@ def my_posts():
     posts = current_user.posts
     return render_template('my_posts.html', posts=posts)
 
+@app.route('/my_cart')
+@login_required
+def my_cart():
+    # posts = current_user.posts
+    return render_template('my_cart.html')
+
 
 @app.route('/posts/<int:post_id>')
 def post_detail(post_id):
