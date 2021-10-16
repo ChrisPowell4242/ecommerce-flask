@@ -3,15 +3,10 @@
 {% block content %}
 
 {% if current_user.is_authenticated %}
-    <h4>Welcome {{ current_user.username }}</h4>
-{% else %}
-    <h4>Welcome, please register using the link at the top if you would like to create your own posts</h4>
-{% endif %}
-{{ products }}
-<h1>Helllllllooooo</h1>
-{% for p in products %}
+    <h4>Welcome {{ current_user.username }}, here are our latest products!</h4>
+    {% for p in products %}
 
-    <!-- <div class="card bg-primary text-white">
+    <div class="card bg-primary text-white d-flex flex-column">
         <div class="card-header">
         {{ p.name }}
         </div>
@@ -22,7 +17,10 @@
             </cite></footer>
         </blockquote>
         </div>
-    </div> -->
+    </div>
 {% endfor %}
+{% else %}
+    <h4>Welcome, please register using the link at the top if you would like to create your own posts</h4>
 
+{% endif %}
 {% endblock %}

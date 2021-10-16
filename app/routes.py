@@ -7,26 +7,24 @@ from app.models import User, Post, Products
 
 @app.route('/')
 def index():
-    title = 'Coding Temple Flask'
-    posts = Post.query.all()
-    return render_template('index.html', title=title, posts=posts)
-
-
-@app.route('/')
-def products():
-    
-    product_1 = {
+    product_1_info = {
         'name': "T-shirt",
         'price': 9.99,
         'description': "This is a blue shirt"
     }
-    product_2 = {
+    product_2_info = {
         'name': "Pants",
         'price': 19.99,
         'description': "This is yellow pants"
     }
-    my_products = [product_1, product_2]
-    return render_template('products.html', products=my_products)
+    product_1 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
+    product_2 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
+    product_3 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
+    product_4 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
+
+    my_products = [product_1, product_2, product_3, product_4]
+    return render_template('index.html', products =my_products )
+
 
 
 
