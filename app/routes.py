@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app.forms import UserInfoForm, PostForm, LoginForm
-from app.models import User, Post, Products
+from app.models import User,  Products, Cart
 
 
 @app.route('/')
@@ -133,8 +133,8 @@ def my_posts():
 @app.route('/my_cart')
 @login_required
 def my_cart():
-    # posts = current_user.posts
-    return render_template('my_cart.html')
+    item = Cart.query.all()
+    return render_template('my_cart.html', item=item)
 
 @app.route('/product_page/<int:product_id>')
 @login_required
@@ -173,13 +173,14 @@ def post_update(post_id):
 @app.route('/product_page/<int:product_id>/cart', methods=['POST'])
 @login_required
 def add_cart(product_id):
-    product = Post.query.get_or_404(product_id)
+    product = Products.query.get_or_404(product_id)
     # if post.author != current_user:
     #     flash('You can only delete your own posts', 'danger')
     #     return redirect(url_for('my_posts'))
-
-    # db.session.delete(post)
-    # db.session.commit()
+    print(product.id, "HERERERE")
+    new_cart = Cart(product.name, product.price, current_user.id, product_id)
+    db.session.add(new_cart)
+    db.session.commit()
 
     # flash(f'{post.title} has been deleted', 'success')
     return redirect(url_for('index'))

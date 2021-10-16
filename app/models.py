@@ -43,6 +43,20 @@ class Products(db.Model):
         self.description = description
         self.user_id = user_id
 
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name= db.Column(db.String(200))
+    price = db.Column(db.Numeric)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+
+    def __init__(self, name, price, user_id, product_id):
+        self.name = name
+        self.price = price
+        # self.description = description
+        self.user_id = user_id
+        self.product_id = product_id
+
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title= db.Column(db.String(200))
