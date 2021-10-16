@@ -2,7 +2,7 @@ from app import app, db
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app.forms import UserInfoForm, PostForm, LoginForm
-from app.models import User, Post
+from app.models import User, Post, Products
 
 
 @app.route('/')
@@ -12,11 +12,22 @@ def index():
     return render_template('index.html', title=title, posts=posts)
 
 
-@app.route('/products')
+@app.route('/')
 def products():
-    title = 'Coding Temple Products'
-    products = ['apple', 'orange', 'banana', 'peach']
-    return render_template('products.html', title=title, products=products)
+    
+    product_1 = {
+        'name': "T-shirt",
+        'price': 9.99,
+        'description': "This is a blue shirt"
+    }
+    product_2 = {
+        'name': "Pants",
+        'price': 19.99,
+        'description': "This is yellow pants"
+    }
+    my_products = [product_1, product_2]
+    return render_template('products.html', products=my_products)
+
 
 
 @app.route('/signup', methods=["GET", 'POST'])

@@ -30,7 +30,18 @@ class User(db.Model, UserMixin):
     # @property
     # def info(self):
     #     return f'{self.username}  {self.email}'
+class Products(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name= db.Column(db.String(200))
+    price = db.Column(db.Numeric)
+    description = db.Column(db.String(300))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    def __init__(self, name, price, description, user_id):
+        self.name = name
+        self.price = price
+        self.description = description
+        self.user_id = user_id
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
