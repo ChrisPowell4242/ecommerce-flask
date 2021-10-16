@@ -22,8 +22,16 @@ def index():
     product_3 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
     product_4 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
 
+
+    
+
     my_products = [product_1, product_2, product_3, product_4]
-    return render_template('index.html', products =my_products )
+
+    for product in my_products:
+        db.session.add(product)
+        db.session.commit()
+
+    return render_template('index.html', products=my_products )
 
 
 
@@ -127,6 +135,11 @@ def my_posts():
 def my_cart():
     # posts = current_user.posts
     return render_template('my_cart.html')
+
+@app.route('/product_page')
+@login_required
+def product_page():
+    return render_template('product_page.html')
 
 
 @app.route('/posts/<int:post_id>')
