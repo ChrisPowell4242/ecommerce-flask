@@ -17,7 +17,7 @@
             </cite></footer>
         </blockquote>
         </div> 
-        <a href="{{ url_for('product_page', product=products.id) }}" class="btn btn-success">More Info</a>
+        <a href="{{ url_for('product_page', product_id=p.id) }}" class="btn btn-success">More Info</a>
     </div>
 {% endfor %}
 {% else %}

@@ -29,8 +29,8 @@ def index():
 
     for product in my_products:
         db.session.add(product)
-        db.session.commit()
-
+        
+    db.session.commit()
     return render_template('index.html', products=my_products )
 
 
@@ -136,10 +136,11 @@ def my_cart():
     # posts = current_user.posts
     return render_template('my_cart.html')
 
-@app.route('/product_page')
+@app.route('/product_page/<int:product_id>')
 @login_required
-def product_page():
-    return render_template('product_page.html')
+def product_page(product_id):
+    product = Products.query.get_or_404(product_id)
+    return render_template('product_page.html', product=product)
 
 
 @app.route('/posts/<int:post_id>')
@@ -168,6 +169,21 @@ def post_update(post_id):
         return redirect(url_for('post_detail', post_id=post.id))
 
     return render_template('post_update.html', post=post, form=form)
+
+@app.route('/product_page/<int:product_id>/cart', methods=['POST'])
+@login_required
+def add_cart(product_id):
+    product = Post.query.get_or_404(product_id)
+    # if post.author != current_user:
+    #     flash('You can only delete your own posts', 'danger')
+    #     return redirect(url_for('my_posts'))
+
+    # db.session.delete(post)
+    # db.session.commit()
+
+    # flash(f'{post.title} has been deleted', 'success')
+    return redirect(url_for('index'))
+
 
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
