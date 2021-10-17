@@ -3,8 +3,10 @@
 
 {% block content %}
 
-<h1>This is my cart!!!{{ item.name }}</h1>
+{% for i in item%}
+
+<h1>This is my cart!!!{{ i.name }}</h1>
 
 
-
+{% endfor %}
 {% endblock content %}

@@ -134,6 +134,7 @@ def my_posts():
 @login_required
 def my_cart():
     item = Cart.query.all()
+    print(item, "HAHAHAHASHAHAHAHAHA")
     return render_template('my_cart.html', item=item)
 
 @app.route('/product_page/<int:product_id>')
@@ -177,7 +178,6 @@ def add_cart(product_id):
     # if post.author != current_user:
     #     flash('You can only delete your own posts', 'danger')
     #     return redirect(url_for('my_posts'))
-    print(product.id, "HERERERE")
     new_cart = Cart(product.name, product.price, current_user.id, product_id)
     db.session.add(new_cart)
     db.session.commit()
