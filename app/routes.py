@@ -17,23 +17,20 @@ def index():
         'price': 19.99,
         'description': "This is yellow pants"
     }
-    product_1 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
-    product_2 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
-    product_3 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
-    product_4 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
+    if current_user.is_authenticated:
+        product_1 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
+        product_2 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
+        product_3 = Products("T-shirt", 9.99, "This is a blue shirt", current_user.id)
+        product_4 = Products("Pants", 19.99, "This is yellow pants", current_user.id)
+        my_products = [product_1, product_2, product_3, product_4]
 
-
-    
-
-    my_products = [product_1, product_2, product_3, product_4]
-
-    for product in my_products:
-        db.session.add(product)
+        for product in my_products:
+            db.session.add(product)
         
-    db.session.commit()
-    return render_template('index.html', products=my_products )
-
-
+        db.session.commit()
+        return render_template('index.html', products=my_products )
+    else:
+        return render_template('index.html' )
 
 
 @app.route('/signup', methods=["GET", 'POST'])

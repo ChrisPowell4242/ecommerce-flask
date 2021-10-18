@@ -24,18 +24,14 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    # def get_id(self):
-    #     return chr(self.id)
 
-    # @property
-    # def info(self):
-    #     return f'{self.username}  {self.email}'
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(200))
     price = db.Column(db.Numeric)
     description = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    product = db.relationship('User', backref='owner', lazy=True)
 
     def __init__(self, name, price, description, user_id):
         self.name = name
