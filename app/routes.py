@@ -28,8 +28,9 @@ def index():
         for product in my_products:
             db.session.add(product)
         
-        # Cart.query.filter(Post == Post).delete()
+        # Cart.query.filter(Cart == Cart).delete()
         db.session.commit()
+        
         return render_template('index.html', products=my_products )
     else:
         return render_template('index.html' )
@@ -91,7 +92,11 @@ def my_account():
 @login_required
 def my_cart():
     item = Cart.query.all()
-    return render_template('my_cart.html', item=item)
+    total = []
+    for i in item:
+        total.append(i.price)
+        total1 = sum(total)
+    return render_template('my_cart.html', item=item, total1=total1)
 
 @app.route('/product_page/<int:product_id>')
 @login_required

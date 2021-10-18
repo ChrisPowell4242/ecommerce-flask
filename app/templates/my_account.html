@@ -1,16 +1,15 @@
-{% extends 'base.html' %}
-
 {% block content %}
 
-<div class="card">
-    <div class="card-header">
-        <h4 class='text-dark'>My Account</h4>
+
+  <div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-3">
+        <div class="d-flex align-items-center">
+            <div class="image"> <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" class="rounded" width="155"> </div>
+            <div class="ml-3 w-100">
+                <h4 class="mb-0 mt-0">{{ current_user.username.title() }}</h4> <span>{{ current_user.email }}</span>
+            </div>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item"><b>Username: </b>{{ current_user.username }}</li>
-      <li class="list-group-item"><b>Email: </b>{{ current_user.email }}</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-  </div>
+</div>
 
 {% endblock content %}

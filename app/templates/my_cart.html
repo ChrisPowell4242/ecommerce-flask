@@ -4,7 +4,7 @@
 
 {% block content %}
 
-
+{% set total = {'value': 0} %}
 <h1>Your shopping cart:<br><br><br></br> </h1>
 {% for i in item%}
 
@@ -52,5 +52,11 @@
 <div class="container justify-content-left align-items-center">
 <br> <button type="button" class="btn btn-primary btn-lg">Check out!</button>
 </div>
+<div>
+    <h1>Cart Total: </h1>
+    <br>
+    <h1>{{ total1 }}</h1>
+</div>
+
 
 {% endblock %}
