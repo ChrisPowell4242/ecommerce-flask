@@ -17,12 +17,10 @@
         </blockquote>
         <a href="{{ url_for('blog.post_update', post_id=post.id) }}" class="btn btn-success">Update</a>
             
-            <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 Delete
             </button>
             
-            <!-- Modal -->
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
@@ -45,7 +43,5 @@
     </div>
 
 </div>
-
-
 
 {% endblock content %}
