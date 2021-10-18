@@ -182,6 +182,18 @@ def add_cart(product_id):
     # flash(f'{post.title} has been deleted', 'success')
     return redirect(url_for('index'))
 
+@app.route('/my_cart/<int:product_id>/cart_item', methods=['POST'])
+@login_required
+def delete_cart(product_id):
+    product = Cart.query.get_or_404(product_id)
+    # if post.author != current_user:
+    #     flash('You can only delete your own posts', 'danger')
+    #     return redirect(url_for('my_posts'))
+    db.session.remove(product.id)
+    db.session.commit()
+
+    # flash(f'{post.title} has been deleted', 'success')
+    return redirect(url_for('index'))
 
 
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
