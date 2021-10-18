@@ -7,6 +7,7 @@ from app.models import User, Products, Cart
 
 @app.route('/')
 def index():
+    
     product_1_info = {
         'name': "T-shirt",
         'price': 9.99,
@@ -27,6 +28,7 @@ def index():
         for product in my_products:
             db.session.add(product)
         
+        # Cart.query.filter(Post == Post).delete()
         db.session.commit()
         return render_template('index.html', products=my_products )
     else:
