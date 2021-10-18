@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(200))
-    price = db.Column(db.Numeric)
+    price = db.Column(db.Numeric(10, 2))
     description = db.Column(db.String(300))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product = db.relationship('User', backref='owner', lazy=True)
@@ -41,7 +41,7 @@ class Products(db.Model):
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name= db.Column(db.String(200))
-    price = db.Column(db.Numeric)
+    price = db.Column(db.Numeric(10, 2))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
 

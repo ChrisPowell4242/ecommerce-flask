@@ -80,35 +80,10 @@ def logout():
     return redirect(url_for('index'))
 
 
-# @app.route('/createpost', methods=['GET', 'POST'])
-# @login_required
-# def createpost():
-#     form = PostForm()
-#     if form.validate_on_submit():
-        
-#         title = form.title.data
-#         content = form.content.data
-#         new_post = Post(title, content, current_user.id)
-#         db.session.add(new_post)
-#         db.session.commit()
-
-#         flash(f'The post {title} has been created.', 'primary')
-#         return redirect(url_for('index'))
-        
-#     return render_template('createpost.html', form=form)
-
-
 @app.route('/my-account')
 @login_required
 def my_account():
     return render_template('my_account.html')
-
-
-# @app.route('/my-posts')
-# @login_required
-# def my_posts():
-#     posts = current_user.posts
-#     return render_template('my_posts.html', posts=posts)
 
 @app.route('/my_cart')
 @login_required
@@ -123,70 +98,18 @@ def product_page(product_id):
     return render_template('product_page.html', product=product)
 
 
-# @app.route('/posts/<int:post_id>')
-# def post_detail(post_id):
-#     post = Post.query.get_or_404(post_id)
-#     return render_template('post_detail.html', post=post)
-
-
-# @app.route('/posts/<int:post_id>/update', methods=['GET', 'POST'])
-# @login_required
-# def post_update(post_id):
-#     post = Post.query.get_or_404(post_id)
-#     if post.author.id != current_user.id:
-#         flash('That is not your post. You may only edit posts you have created.', 'danger')
-#         return redirect(url_for('my_posts'))
-#     form = PostForm()
-#     if form.validate_on_submit():
-#         new_title = form.title.data
-#         new_content = form.content.data
-#         print(new_title, new_content)
-#         post.title = new_title
-#         post.content = new_content
-#         db.session.commit()
-
-#         flash(f'{post.title} has been saved', 'success')
-#         return redirect(url_for('post_detail', post_id=post.id))
-
-#     return render_template('post_update.html', post=post, form=form)
-
 @app.route('/product_page/<int:product_id>/cart', methods=['POST'])
 @login_required
 def add_cart(product_id):
     product = Products.query.get_or_404(product_id)
-    # if post.author != current_user:
-    #     flash('You can only delete your own posts', 'danger')
-    #     return redirect(url_for('my_posts'))
     new_cart = Cart(product.name, product.price, current_user.id, product_id)
     db.session.add(new_cart)
     db.session.commit()
-
-    # flash(f'{post.title} has been deleted', 'success')
     return redirect(url_for('index'))
 
 @app.route('/my_cart/<int:product_id>/cart_item', methods=['POST'])
 @login_required
 def delete_cart(product_id):
-    # product = Cart.query.get_or_404(product_id)
-    # print(product, "HAHAHAHASHAHAHAHAHA")
-
     Cart.query.filter(Cart.id == product_id).delete()
-    # db.session.delete(product.id)
     db.session.commit()
-
     return redirect(url_for('index'))
-
-
-# @app.route('/posts/<int:post_id>/delete', methods=['POST'])
-# @login_required
-# def post_delete(post_id):
-#     post = Post.query.get_or_404(post_id)
-#     if post.author != current_user:
-#         flash('You can only delete your own posts', 'danger')
-#         return redirect(url_for('my_posts'))
-
-#     db.session.delete(post)
-#     db.session.commit()
-
-#     flash(f'{post.title} has been deleted', 'success')
-#     return redirect(url_for('my_posts'))
